@@ -21,6 +21,4 @@ public class Category{
 
     private String category_link;
 
-    @Lob
-    private byte[] category_image;
 }

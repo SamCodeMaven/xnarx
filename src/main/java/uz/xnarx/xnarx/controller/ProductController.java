@@ -69,18 +69,4 @@ public class ProductController {
         ApiResponse response = productService.getProductById(id);
         return ResponseEntity.status(response.isSuccess()?200:409).body(response);
     }
-
-    @PostMapping("/{id}/image")
-    public ResponseEntity<?> uploadProductImage(@PathVariable Integer id, @RequestParam("image") MultipartFile imageFile) {
-        try {
-            productService.saveProductImage(id, imageFile);
-            return ResponseEntity.ok("Image saved successfully.");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while saving the image: " + e.getMessage());
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-    }
-
 }

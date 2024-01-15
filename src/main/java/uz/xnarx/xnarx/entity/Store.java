@@ -20,6 +20,4 @@ public class Store {
 
     private String store_link;
 
-    @Lob
-    private byte[] store_image;
 }

@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Page<ProductDto> findProductsByCategory_name(String category_name, Pageable pageable);
 
 
-    @Query("SELECT NEW uz.xnarx.xnarx.payload.ProductDto(p.id, p.product_name, p.product_link, p.characteristics, p.category_name, p.store_name, MIN(ph.price), MAX(ph.date), p.product_image) " +
+    @Query("SELECT NEW uz.xnarx.xnarx.payload.ProductDto(p.id, p.product_name, p.product_link, p.characteristics, p.category_name, p.store_name, MIN(ph.price), MAX(ph.date)) " +
             "FROM Product p JOIN p.priceHistory ph " +
             "WHERE ph.date = (SELECT MAX(ph2.date) FROM PriceHistory ph2 WHERE ph2.product = p) " +
             "AND ph.price = (SELECT MIN(ph3.price) FROM PriceHistory ph3 WHERE ph3.product_name= ph.product_name AND ph3.date=ph.date) " +

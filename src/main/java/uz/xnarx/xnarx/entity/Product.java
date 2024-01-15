@@ -41,7 +41,4 @@ public class Product{
 
     private String category_name;
 
-    @Lob
-    private byte[] product_image;
-
 }

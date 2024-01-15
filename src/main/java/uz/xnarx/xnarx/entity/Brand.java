@@ -17,7 +17,4 @@ public class Brand {
 
     @Column(nullable = false)
     private String brand_name;
-
-    @Lob
-    private byte[] brand_image;
 }

@@ -84,12 +84,4 @@ public class ProductService {
             return new ApiResponse("Product not found",false);
         }
     }
-    public void saveProductImage(Integer id, MultipartFile image) throws IOException {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Product not found"));
-
-        byte[] imageBytes = image.getBytes();
-        product.setProduct_image(imageBytes);
-        productRepository.save(product);
-    }
 }

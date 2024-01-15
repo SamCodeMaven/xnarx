@@ -23,8 +23,6 @@ public class ProductDto {
 
     private Date date;
 
-    private byte[] product_image;
-
     public ProductDto() {
         this.id = id;
         this.name = name;
@@ -35,17 +33,7 @@ public class ProductDto {
     }
 
 
-    public ProductDto(Integer id, String name, String store_name, String product_link, String characteristics, String category_name, Integer price, Date date, byte[] product_image) {
-        this.id = id;
-        this.name = name;
-        this.store_name = store_name;
-        this.product_link = product_link;
-        this.characteristics = characteristics;
-        this.category_name = category_name;
-        this.price = price;
-        this.date = date;
-        this.product_image = product_image;
-    }
+
 
     public ProductDto(Integer id, String name, String store_name, String product_link, String characteristics, String category_name, Integer price, Date date) {
         this.id = id;
