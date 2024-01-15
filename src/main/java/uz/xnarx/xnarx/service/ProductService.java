@@ -70,8 +70,8 @@ public class ProductService {
         Page<Product> productPage = productRepository.findAllProductsWithHistory(name, CommonUtills.simplePageable(page, size));
         return new ApiResponse("Success", true, productPage.getTotalElements(), productPage.getTotalPages(), productPage.getContent());
     }
-    public List<ProductDto> getCheapestSmartphonesByProductName() {
-        return productRepository.findCheapestSmartphonesByProductName();
+    public List<ProductDto> getAllProduct() {
+        return productRepository.getAllProduct();
     }
 
     public ApiResponse getProductById(Integer id) {
@@ -83,5 +83,17 @@ public class ProductService {
         }catch (Exception e){
             return new ApiResponse("Product not found",false);
         }
+    }
+
+    public ApiResponse getMinMaxProduct(String categoryName, Integer minPrice, Integer maxPrice, Integer page, Integer size) {
+        Page<ProductDto> productPage=productRepository.
+                getMinMaxProduct(categoryName,minPrice,maxPrice,CommonUtills.simplePageable(page,size));
+
+
+        return new ApiResponse("Success",
+                true,
+                productPage.getTotalElements(),
+                productPage.getTotalPages(),
+                productPage.getContent());
     }
 }

@@ -31,9 +31,21 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public HttpEntity<?> getCheapestSmartphones() {
-        List<ProductDto> products = productService.getCheapestSmartphonesByProductName();
+    public HttpEntity<?> getCheapestAllProduct() {
+        List<ProductDto> products = productService.getAllProduct();
         return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/{categoryName}")
+    public HttpEntity<?> getMinMaxPriceProduct0(@PathVariable String categoryName,
+                                                @RequestParam("minPrice") Integer minPrice,
+                                                @RequestParam("maxPrice") Integer maxPrice,
+                                                @RequestParam(value = "page",
+                                                        defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
+                                                @RequestParam(value = "size",
+                                                        defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size){
+        return ResponseEntity.ok(productService.getMinMaxProduct(categoryName,minPrice,maxPrice,page,size));
+
     }
 
     @GetMapping("/getByName/{product_name}")
@@ -55,6 +67,7 @@ public class ProductController {
     ){
             return ResponseEntity.ok(productService.getAllProductHistory(name,page,size));
     }
+
     @GetMapping("/getByCategory/{categoryName}")
     public HttpEntity<?> getProductsByCategoryName(@PathVariable String categoryName,@RequestParam(value = "page",
             defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
