@@ -29,7 +29,7 @@ public class PriceHistory{
 
     private String store_name;
 
-    private Integer price;
+    private Double price;
 
     private String product_name;
 

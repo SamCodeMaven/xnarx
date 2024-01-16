@@ -17,12 +17,12 @@ public class CommonUtills {
     }
     public static Pageable getPageableByCreatedAtDesc(int page, int size) {
         validatePageNumberAndSize(page, size);
-        return PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        return PageRequest.of(page, size, Sort.Direction.DESC, "price");
     }
 
-    public static Pageable getPageableByCreatedAtAsc(int page, int size) {
+    public static Pageable getPageableByPriceAsc(int page, int size) {
         validatePageNumberAndSize(page, size);
-        return PageRequest.of(page, size, Sort.Direction.ASC, "createdAt");
+        return PageRequest.of(page, size, Sort.Direction.ASC, "price");
     }
 
     public static Pageable simplePageable(int page, int size) {

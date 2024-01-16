@@ -9,7 +9,7 @@ public class PriceHistoryDto {
     private Integer id;
     private String product_name;
     private String store_name;
-    private Integer price;
+    private Double price;
     private Integer productId;
     private Date date;
 }

@@ -37,6 +37,8 @@ public class Product{
     @Column(nullable = false)
     private String product_link;
 
+    private String product_image;
+
     private String characteristics;
 
     private String category_name;

@@ -17,4 +17,6 @@ public class Brand {
 
     @Column(nullable = false)
     private String brand_name;
+
+    private String brand_image;
 }

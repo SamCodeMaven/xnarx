@@ -54,9 +54,15 @@ public class ProductService {
                 productPage.getContent());
     }
 
-    public ApiResponse getProductByName(String name,Integer page, Integer size) {
-        Page<ProductDto> productPage=productRepository.
-                searchByName(name,CommonUtills.simplePageable(page,size));
+    public ApiResponse getProductByName(String name,Double min,Double max, Boolean orderType, Integer page, Integer size) {
+        Page<ProductDto> productPage=null;
+        if (orderType) {
+            productPage = productRepository
+                    .searchByNameASC(name, min,max, CommonUtills.simplePageable(page, size));
+        }else {
+            productPage=productRepository.
+                    searchByNameDESC(name, min,max, CommonUtills.simplePageable(page, size));
+        }
 
 
         return new ApiResponse("Suc" +
@@ -85,11 +91,15 @@ public class ProductService {
         }
     }
 
-    public ApiResponse getMinMaxProduct(String categoryName, Integer minPrice, Integer maxPrice, Integer page, Integer size) {
-        Page<ProductDto> productPage=productRepository.
-                getMinMaxProduct(categoryName,minPrice,maxPrice,CommonUtills.simplePageable(page,size));
-
-
+    public ApiResponse getMinMaxProduct(String categoryName, Double minPrice, Double maxPrice, Boolean orderType,Integer page, Integer size) {
+        Page<ProductDto> productPage=null;
+        if (orderType) {
+            productPage = productRepository.
+                    getMinMaxProductASC(categoryName, minPrice, maxPrice, CommonUtills.simplePageable(page, size));
+        }else {
+            productPage = productRepository.
+                    getMinMaxProductDESC(categoryName, minPrice, maxPrice, CommonUtills.simplePageable(page, size));
+        }
         return new ApiResponse("Success",
                 true,
                 productPage.getTotalElements(),

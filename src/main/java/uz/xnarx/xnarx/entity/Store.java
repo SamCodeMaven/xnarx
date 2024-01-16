@@ -20,4 +20,5 @@ public class Store {
 
     private String store_link;
 
+    private String store_image;
 }

@@ -21,4 +21,6 @@ public class Category{
 
     private String category_link;
 
+    private String category_image;
+
 }

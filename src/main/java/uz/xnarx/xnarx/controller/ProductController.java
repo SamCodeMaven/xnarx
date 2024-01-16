@@ -38,24 +38,30 @@ public class ProductController {
 
     @GetMapping("/{categoryName}")
     public HttpEntity<?> getMinMaxPriceProduct0(@PathVariable String categoryName,
-                                                @RequestParam("minPrice") Integer minPrice,
-                                                @RequestParam("maxPrice") Integer maxPrice,
+                                                @RequestParam("minPrice") Double minPrice,
+                                                @RequestParam("maxPrice") Double maxPrice,
+                                                @RequestParam("orderType") boolean orderType,
+
                                                 @RequestParam(value = "page",
                                                         defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
                                                 @RequestParam(value = "size",
                                                         defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size){
-        return ResponseEntity.ok(productService.getMinMaxProduct(categoryName,minPrice,maxPrice,page,size));
+        return ResponseEntity.ok(productService.getMinMaxProduct(categoryName,minPrice,maxPrice,orderType,page,size));
 
     }
 
     @GetMapping("/getByName/{product_name}")
     public HttpEntity<?> getProductByName(@PathVariable(value = "product_name") String name,
+                                          @RequestParam("minPrice") Double minPrice,
+                                          @RequestParam("maxPrice") Double maxPrice,
+                                          @RequestParam("orderType") boolean orderType,
+
                                           @RequestParam(value = "page",
                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
                                           @RequestParam(value = "size",
                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
     ){
-        return ResponseEntity.ok(productService.getProductByName(name,page,size));
+        return ResponseEntity.ok(productService.getProductByName(name,minPrice,maxPrice,orderType,page,size));
     }
 
     @GetMapping("/getAllPH/{product_name}")
