@@ -13,10 +13,12 @@ import uz.xnarx.xnarx.service.ProductService;
 import uz.xnarx.xnarx.utils.ApplicationConstants;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping(value = "/api/product",method = RequestMethod.GET)
 public class ProductController {
 
     @Autowired
@@ -71,7 +73,8 @@ public class ProductController {
                 @RequestParam(value = "size",
                         defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
     ){
-            return ResponseEntity.ok(productService.getAllProductHistory(name,page,size));
+        String decodedName = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        return ResponseEntity.ok(productService.getAllProductHistory(decodedName,page,size));
     }
 
     @GetMapping("/getByCategory/{categoryName}")
