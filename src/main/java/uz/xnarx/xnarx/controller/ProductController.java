@@ -2,23 +2,17 @@ package uz.xnarx.xnarx.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import uz.xnarx.xnarx.exception.ResourceNotFoundException;
 import uz.xnarx.xnarx.payload.ApiResponse;
 import uz.xnarx.xnarx.payload.ProductDto;
 import uz.xnarx.xnarx.service.ProductService;
 import uz.xnarx.xnarx.utils.ApplicationConstants;
 
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/product",method = RequestMethod.GET)
+@RequestMapping(value = "/api/product")
 public class ProductController {
 
     @Autowired
@@ -38,11 +32,11 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/{categoryName}")
+    @GetMapping("/category/{categoryName}")
     public HttpEntity<?> getMinMaxPriceProduct0(@PathVariable String categoryName,
-                                                @RequestParam("minPrice") Double minPrice,
-                                                @RequestParam("maxPrice") Double maxPrice,
-                                                @RequestParam("orderType") boolean orderType,
+                                                @RequestParam(value = "minPrice") Double minPrice,
+                                                @RequestParam(value = "maxPrice") Double maxPrice,
+                                                @RequestParam(value = "orderType") boolean orderType,
 
                                                 @RequestParam(value = "page",
                                                         defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
@@ -52,11 +46,11 @@ public class ProductController {
 
     }
 
-    @GetMapping("/getByName/{product_name}")
-    public HttpEntity<?> getProductByName(@PathVariable(value = "product_name") String name,
-                                          @RequestParam("minPrice") Double minPrice,
-                                          @RequestParam("maxPrice") Double maxPrice,
-                                          @RequestParam("orderType") boolean orderType,
+    @GetMapping("/getByName")
+    public HttpEntity<?> getProductByName(@RequestParam(value = "product_name") String name,
+                                          @RequestParam(value = "minPrice") Double minPrice,
+                                          @RequestParam(value = "maxPrice") Double maxPrice,
+                                          @RequestParam(value = "orderType") boolean orderType,
 
                                           @RequestParam(value = "page",
                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
@@ -66,26 +60,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductByName(name,minPrice,maxPrice,orderType,page,size));
     }
 
-    @GetMapping("/getAllPH/{product_name}")
-        public HttpEntity<?> getAllProductHistory(@PathVariable(value = "product_name") String name,
+    @GetMapping("/getAllPH")
+        public HttpEntity<?> getAllProductHistory(@RequestParam(value = "product_name") String name,
                 @RequestParam(value = "page",
                         defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
                 @RequestParam(value = "size",
                         defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
     ){
-        String decodedName = URLDecoder.decode(name, StandardCharsets.UTF_8);
-        return ResponseEntity.ok(productService.getAllProductHistory(decodedName,page,size));
+        return ResponseEntity.ok(productService.getAllProductHistory(name,page,size));
     }
-
-    @GetMapping("/getByCategory/{categoryName}")
-    public HttpEntity<?> getProductsByCategoryName(@PathVariable String categoryName,@RequestParam(value = "page",
-            defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
-                                                                 @RequestParam(value = "size",
-                                                                         defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
-    ) {
-        return ResponseEntity.ok(productService.getProductByCategory(categoryName,page,size));
-    }
-
     @GetMapping("/getById/{id}")
     public HttpEntity<?> getProductById(@PathVariable Integer id) {
         ApiResponse response = productService.getProductById(id);
