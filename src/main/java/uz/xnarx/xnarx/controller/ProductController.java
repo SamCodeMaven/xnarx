@@ -34,9 +34,12 @@ public class ProductController {
 
     @GetMapping("/category/{categoryName}")
     public HttpEntity<?> getMinMaxPriceProduct0(@PathVariable String categoryName,
-                                                @RequestParam(value = "minPrice") Double minPrice,
-                                                @RequestParam(value = "maxPrice") Double maxPrice,
-                                                @RequestParam(value = "orderType") boolean orderType,
+                                                @RequestParam(value = "minPrice",
+                                                defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
+                                                @RequestParam(value = "maxPrice",
+                                                defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
+                                                @RequestParam(value = "orderType",
+                                                defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
 
                                                 @RequestParam(value = "page",
                                                         defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
@@ -46,11 +49,15 @@ public class ProductController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getByName")
     public HttpEntity<?> getProductByName(@RequestParam(value = "product_name") String name,
-                                          @RequestParam(value = "minPrice") Double minPrice,
-                                          @RequestParam(value = "maxPrice") Double maxPrice,
-                                          @RequestParam(value = "orderType") boolean orderType,
+                                          @RequestParam(value = "minPrice",
+                                          defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
+                                          @RequestParam(value = "maxPrice",
+                                          defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
+                                          @RequestParam(value = "orderType",
+                                          defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
 
                                           @RequestParam(value = "page",
                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
