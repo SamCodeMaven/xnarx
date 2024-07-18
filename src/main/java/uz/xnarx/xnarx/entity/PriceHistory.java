@@ -3,19 +3,20 @@ package uz.xnarx.xnarx.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
-@Data
+@Getter
+@Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "pricehistory")
 public class PriceHistory{
 
 
@@ -23,18 +24,17 @@ public class PriceHistory{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false,name = "product_link")
+    private String productLink;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonBackReference
     private Product product;
 
-    private String store_name;
+    private Timestamp date;
 
     private Double price;
 
-    private String product_name;
-
-    private String product_link;
-
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date date;
+    @Column(name = "store_name")
+    private String storeName;
 }

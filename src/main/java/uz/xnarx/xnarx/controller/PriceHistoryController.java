@@ -1,52 +1,36 @@
 package uz.xnarx.xnarx.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.xnarx.xnarx.payload.ApiResponse;
+import uz.xnarx.xnarx.constant.ProjectEndpoint;
 import uz.xnarx.xnarx.payload.PriceHistoryDto;
+import uz.xnarx.xnarx.payload.ProductDto;
+import uz.xnarx.xnarx.payload.ProductResponse;
 import uz.xnarx.xnarx.service.PriceHistoryService;
 import uz.xnarx.xnarx.utils.ApplicationConstants;
 
 
 @RestController
-@RequestMapping("/api/priceHistory")
+@RequiredArgsConstructor
 public class PriceHistoryController {
 
-    @Autowired
-    PriceHistoryService priceHistoryService;
 
-    @GetMapping("/get/ByName")
-    public HttpEntity<?> getProductByName(@RequestParam(value = "product_name") String name,
-                                          @RequestParam(value = "minPrice") Double minPrice,
-                                          @RequestParam(value = "maxPrice") Double maxPrice,
-                                          @RequestParam(value = "orderType") boolean orderType,
+    private final PriceHistoryService priceHistoryService;
 
-                                          @RequestParam(value = "page",
-                                                  defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
-                                          @RequestParam(value = "size",
-                                                  defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
-    ){
-        return ResponseEntity.ok(priceHistoryService.getProductByName(name,minPrice,maxPrice,orderType,page,size));
+    @Operation(summary = "get all price history by product_id",
+            responses = @ApiResponse(responseCode = "200",
+                    content = @Content(
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = PriceHistoryDto.class)))))
+    @GetMapping(value = ProjectEndpoint.PRICE_HISTORY)
+    public ResponseEntity<ProductResponse> getPriceHistoryByProductId(@PathVariable Integer productId) {
+        return ResponseEntity.ok(priceHistoryService.getPriceHistoryByProductId(productId));
     }
-
-    @PostMapping("/save/{productId}")
-    public HttpEntity<?> savePriceHistory(@RequestBody PriceHistoryDto priceHistoryDto, Integer productId) {
-        ApiResponse apiResponse = priceHistoryService.savePriceHistory(priceHistoryDto, productId);
-        return ResponseEntity
-                .status(apiResponse.isSuccess()?apiResponse.getMessage().equals("Saved")?201:202:409)
-                .body(apiResponse);
-    }
-    @GetMapping("/getAllPH")
-    public HttpEntity<?> getAllProductHistory(@RequestParam(value = "product_name") String name,
-                                              @RequestParam(value = "page",
-                                                      defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
-                                              @RequestParam(value = "size",
-                                                      defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
-    ){
-        System.out.println(name);
-        return ResponseEntity.ok(priceHistoryService.getAllProductHistory(name,page,size));
-    }
-
 }

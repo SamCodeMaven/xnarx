@@ -1,13 +1,13 @@
 package uz.xnarx.xnarx.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiResponse {
+public class ProductResponse {
 
     private String message;
     private boolean success;
@@ -15,12 +15,12 @@ public class ApiResponse {
     private Integer totalPages;
     private Object object;
 
-    public ApiResponse(String message, boolean success) {
+    public ProductResponse(String message, boolean success) {
         this.message = message;
         this.success = success;
     }
 
-    public ApiResponse(String message, boolean success, Object object) {
+    public ProductResponse(String message, boolean success, Object object) {
         this.message = message;
         this.success = success;
         this.object = object;
