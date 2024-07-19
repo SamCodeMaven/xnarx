@@ -1,24 +1,20 @@
 package uz.xnarx.productservice.payload;
 
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PriceHistoryDto {
     private Integer id;
-    private String product_name;
-    private String product_link;
-    private String store_name;
+    private String storeName;
+    private String productLink;
     private Double price;
     private Timestamp date;
+    private Integer product;
 
-    public PriceHistoryDto(Integer id, String product_name, String product_link, String store_name, Double price, Timestamp date) {
-        this.id = id;
-        this.product_name = product_name;
-        this.product_link = product_link;
-        this.store_name = store_name;
-        this.price = price;
-        this.date = date;
-    }
 }

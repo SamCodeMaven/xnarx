@@ -1,5 +1,6 @@
 package uz.xnarx.productservice.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import uz.xnarx.productservice.entity.Product;
 import uz.xnarx.productservice.exception.NotFoundException;
 import uz.xnarx.productservice.payload.ProductResponse;
 import uz.xnarx.productservice.payload.ProductDto;
+import uz.xnarx.productservice.payload.ProductWithHistoryDto;
 import uz.xnarx.productservice.repository.PriceHistoryRepository;
 import uz.xnarx.productservice.repository.ProductRepository;
 import uz.xnarx.productservice.utils.CommonUtills;
@@ -19,6 +21,8 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    private final ObjectMapper objectMapper;
 
     private final PriceHistoryRepository priceHistoryRepository;
 
@@ -66,8 +70,8 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDto findByProductId(Integer productId) {
+    public ProductWithHistoryDto findByProductId(Integer productId) {
         Product product=productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product not found"));
-        return new ProductDto(product.getId(),product.getProductName(),product.getProductImage(),product.getCategoryName());
+        return objectMapper.convertValue(product, ProductWithHistoryDto.class);
     }
 }

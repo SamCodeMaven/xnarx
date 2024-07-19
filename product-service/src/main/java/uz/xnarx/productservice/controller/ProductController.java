@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.xnarx.productservice.constant.ProjectEndpoint;
 import uz.xnarx.productservice.payload.ProductDto;
 import uz.xnarx.productservice.payload.ProductResponse;
+import uz.xnarx.productservice.payload.ProductWithHistoryDto;
 import uz.xnarx.productservice.service.ProductService;
 import uz.xnarx.productservice.utils.ApplicationConstants;
 
@@ -81,7 +82,8 @@ public class ProductController {
                             array = @ArraySchema(
                                     schema = @Schema(implementation = ProductDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_ID)
-    private ProductDto getProductById(@RequestParam(value = "productId") Integer productId) {
-        return productService.findByProductId(productId);
+    private ResponseEntity<ProductWithHistoryDto> getProductById(@RequestParam(value = "productId") Integer productId) {
+        ProductWithHistoryDto historyDto=productService.findByProductId(productId);
+        return ResponseEntity.ok(historyDto);
     }
 }
