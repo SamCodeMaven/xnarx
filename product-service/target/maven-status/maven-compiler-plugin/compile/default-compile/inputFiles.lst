@@ -12,6 +12,7 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\PriceHistoryDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductResponse.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductWithHistoryDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\PriceHistoryRepository.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\ProductRepository.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\service\PriceHistoryService.java

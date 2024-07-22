@@ -1,5 +1,6 @@
 uz\xnarx\productservice\utils\CommonUtills.class
 uz\xnarx\productservice\entity\PriceHistory.class
+uz\xnarx\productservice\payload\PriceHistoryDto$PriceHistoryDtoBuilder.class
 uz\xnarx\productservice\payload\ProductDto$ProductDtoBuilder.class
 uz\xnarx\productservice\exception\BadRequestException.class
 uz\xnarx\productservice\exception\ResourceNotFoundException.class
@@ -10,6 +11,8 @@ uz\xnarx\productservice\payload\PriceHistoryDto.class
 uz\xnarx\productservice\configuration\SwaggerConfig.class
 uz\xnarx\productservice\exception\ImageNotFoundException.class
 uz\xnarx\productservice\payload\ProductResponse.class
+uz\xnarx\productservice\payload\ProductWithHistoryDto$ProductWithHistoryDtoBuilder.class
+uz\xnarx\productservice\payload\ProductWithHistoryDto.class
 uz\xnarx\productservice\repository\PriceHistoryRepository.class
 uz\xnarx\productservice\service\PriceHistoryService.class
 uz\xnarx\productservice\entity\PriceHistory$PriceHistoryBuilder.class
