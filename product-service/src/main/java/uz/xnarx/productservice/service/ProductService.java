@@ -3,7 +3,6 @@ package uz.xnarx.productservice.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.xnarx.productservice.entity.PriceHistory;
@@ -56,7 +55,7 @@ public class ProductService {
 
     @Transactional
     public ProductResponse getProductByName(String name,Double min,Double max, Boolean orderType, Integer page, Integer size) {
-        Page<ProductDto> productPage=null;
+        Page<ProductDto> productPage;
         if (orderType) {
             productPage = productRepository
                     .searchByNameASC(name, min,max, CommonUtills.simplePageable(page, size));
@@ -78,7 +77,7 @@ public class ProductService {
         Product product=productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
-        LocalDate date=LocalDate.now().minusDays(7);
+        LocalDate date=LocalDate.now().minusDays(10);
         List<PriceHistory> priceHistoryList=priceHistoryRepository.findByProductIdOrderByDateDesc(productId,date);
 
         ProductWithHistoryDto productWithHistoryDtos=objectMapper.convertValue(product, ProductWithHistoryDto.class);
