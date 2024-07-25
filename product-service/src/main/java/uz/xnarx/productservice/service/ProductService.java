@@ -3,10 +3,13 @@ package uz.xnarx.productservice.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.xnarx.productservice.entity.PriceHistory;
 import uz.xnarx.productservice.entity.Product;
 import uz.xnarx.productservice.exception.NotFoundException;
+import uz.xnarx.productservice.payload.PriceHistoryDto;
 import uz.xnarx.productservice.payload.ProductResponse;
 import uz.xnarx.productservice.payload.ProductDto;
 import uz.xnarx.productservice.payload.ProductWithHistoryDto;
@@ -14,6 +17,7 @@ import uz.xnarx.productservice.repository.PriceHistoryRepository;
 import uz.xnarx.productservice.repository.ProductRepository;
 import uz.xnarx.productservice.utils.CommonUtills;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -71,7 +75,16 @@ public class ProductService {
 
     @Transactional
     public ProductWithHistoryDto findByProductId(Integer productId) {
-        Product product=productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product not found"));
-        return objectMapper.convertValue(product, ProductWithHistoryDto.class);
+        Product product=productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+
+        LocalDate date=LocalDate.now().minusDays(7);
+        List<PriceHistory> priceHistoryList=priceHistoryRepository.findByProductIdOrderByDateDesc(productId,date);
+
+        ProductWithHistoryDto productWithHistoryDtos=objectMapper.convertValue(product, ProductWithHistoryDto.class);
+        productWithHistoryDtos.setPriceHistory(priceHistoryList
+                .stream().map(priceHistory -> objectMapper.convertValue(priceHistory, PriceHistoryDto.class)).toList());
+
+        return productWithHistoryDtos;
     }
 }
