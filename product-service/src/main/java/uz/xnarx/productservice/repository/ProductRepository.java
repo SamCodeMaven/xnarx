@@ -3,8 +3,10 @@ package uz.xnarx.productservice.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import uz.xnarx.productservice.entity.Product;
 import uz.xnarx.productservice.payload.ProductDto;
 
@@ -15,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT NEW uz.xnarx.productservice.payload.ProductDto(p.id, p.productName, p.productImage, p.categoryName, ph.date, MIN(ph.price), ph.storeName, ph.productLink) " +
             "FROM Product p " +
             "JOIN p.priceHistory ph " +
-            "WHERE DATE(ph.date) = (SELECT MAX(DATE(ph2.date)) FROM PriceHistory ph2 WHERE ph2.product = p) " +
+            "WHERE p.categoryName='' AND DATE(ph.date) = (SELECT MAX(DATE(ph2.date)) FROM PriceHistory ph2 WHERE ph2.product = p) " +
             "AND ph.price = (SELECT MIN(ph3.price) FROM PriceHistory ph3 WHERE ph3.product = p AND DATE(ph3.date) = DATE(ph.date)) " +
             "GROUP BY p.id, p.productName, p.productImage, p.categoryName, ph.date, ph.storeName, ph.productLink " +
             "ORDER BY p.productName")
@@ -60,6 +62,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "GROUP BY p.id, p.productName, p.productImage, p.categoryName, ph.date, ph.storeName, ph.productLink  " +
             "ORDER BY MIN(ph.price) DESC ")
     Page<ProductDto> searchByNameDESC(String product_name, @Param("minPrice")Double minPrice, @Param("maxPrice")Double maxPrice, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Product p WHERE p.categoryName <>'Smartfonlar'")
+    void deleteAllExceptSmartPhone();
 
     //    @Query("SELECT NEW uz.xnarx.xnarx.payload.ProductDto(p.id, p.product_name, p.store_name, p.product_link,p.product_image, p.characteristics, p.category_name,  MIN(ph.price),MAX(ph.date)) " +
 //            "FROM Product p JOIN p.priceHistory ph " +
