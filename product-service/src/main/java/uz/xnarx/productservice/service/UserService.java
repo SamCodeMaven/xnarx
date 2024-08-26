@@ -23,7 +23,6 @@ import uz.xnarx.productservice.payload.AuthenticationResponse;
 import uz.xnarx.productservice.payload.ProductResponse;
 import uz.xnarx.productservice.payload.UserDto;
 import uz.xnarx.productservice.repository.UserRepository;
-import uz.xnarx.productservice.token.repository.TokenRepository;
 import uz.xnarx.productservice.utils.CommonUtills;
 
 import java.io.IOException;
@@ -37,7 +36,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    private final TokenRepository tokenRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final ObjectMapper objectMapper;
@@ -103,7 +101,6 @@ public class UserService {
         }
         var jwtToken = jwtService.generateToken(Map.of("role", user.getRole().name()),user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        revokeAllUserTokens(user);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -132,7 +129,6 @@ public class UserService {
             }
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
                 var authResponse = AuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
@@ -199,17 +195,6 @@ public class UserService {
         user.setEnabled(false);
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
-    }
-
-    private void revokeAllUserTokens(Users user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
-        if (validUserTokens.isEmpty())
-            return;
-        validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
-        });
-        tokenRepository.saveAll(validUserTokens);
     }
 
     public UserDto getUserByToken() {

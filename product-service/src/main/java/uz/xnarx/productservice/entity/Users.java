@@ -7,11 +7,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uz.xnarx.productservice.entity.enumurated.Role;
-import uz.xnarx.productservice.token.Token;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Builder
 @Data
