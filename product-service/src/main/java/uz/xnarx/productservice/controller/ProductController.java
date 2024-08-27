@@ -61,7 +61,7 @@ public class ProductController {
                             array = @ArraySchema(
                                     schema = @Schema(implementation = ProductDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_NAME)
-    public ResponseEntity<ProductResponse> getProductByName(@PathVariable(value = "productName") String productName,
+    public ResponseEntity<ProductResponse> getProductByName(@RequestParam(value = "name") String productName,
                                           @RequestParam(value = "minPrice",
                                           defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
                                           @RequestParam(value = "maxPrice",
@@ -80,9 +80,9 @@ public class ProductController {
             responses = @ApiResponse(responseCode = "200",
                     content = @Content(
                             array = @ArraySchema(
-                                    schema = @Schema(implementation = ProductDto.class)))))
+                                    schema = @Schema(implementation = ProductWithHistoryDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_ID)
-    private ResponseEntity<ProductWithHistoryDto> getProductById(@RequestParam(value = "productId") Integer productId) {
+    private ResponseEntity<ProductWithHistoryDto> getProductById(@PathVariable(value = "id") Integer productId) {
         ProductWithHistoryDto historyDto=productService.findByProductId(productId);
         return ResponseEntity.ok(historyDto);
     }

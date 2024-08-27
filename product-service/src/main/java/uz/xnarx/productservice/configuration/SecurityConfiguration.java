@@ -26,7 +26,8 @@ import static uz.xnarx.productservice.entity.enumurated.Role.USER;
 public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST_URL = {"/api/auth/authenticate", "/api/auth/refresh-token",
-            ProjectEndpoint.USER_REGISTER,
+            ProjectEndpoint.USER_REGISTER, ProjectEndpoint.PRODUCTS, ProjectEndpoint.PRODUCT_NAME, ProjectEndpoint.PRODUCT_ID,
+            ProjectEndpoint.PRODUCT_CATEGORY, ProjectEndpoint.PRICE_HISTORY,
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

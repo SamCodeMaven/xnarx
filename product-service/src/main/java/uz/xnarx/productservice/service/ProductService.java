@@ -77,7 +77,7 @@ public class ProductService {
         Product product=productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
-        LocalDate date=LocalDate.now().minusDays(10);
+        LocalDate date=LocalDate.now().minusDays(100);
         List<PriceHistory> priceHistoryList=priceHistoryRepository.findByProductIdOrderByDateDesc(productId,date);
 
         ProductWithHistoryDto productWithHistoryDtos=objectMapper.convertValue(product, ProductWithHistoryDto.class);

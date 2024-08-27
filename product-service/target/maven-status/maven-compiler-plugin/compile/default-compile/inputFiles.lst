@@ -4,8 +4,8 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\JwtAuthenticationFilter.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\JwtService.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\LogoutService.java
-F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\OpenApiConfig.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\SecurityConfiguration.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\configuration\SwaggerConfig.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\constant\ProjectEndpoint.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\controller\PriceHistoryController.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\controller\ProductController.java

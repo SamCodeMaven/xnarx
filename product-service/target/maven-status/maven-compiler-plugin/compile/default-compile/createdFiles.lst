@@ -9,6 +9,7 @@ uz\xnarx\productservice\payload\AuthenticationResponse.class
 uz\xnarx\productservice\configuration\JwtService.class
 uz\xnarx\productservice\controller\PriceHistoryController.class
 uz\xnarx\productservice\payload\PriceHistoryDto.class
+uz\xnarx\productservice\configuration\SwaggerConfig.class
 uz\xnarx\productservice\exception\ImageNotFoundException.class
 uz\xnarx\productservice\payload\UserDto.class
 uz\xnarx\productservice\entity\Users$UsersBuilder.class
@@ -35,7 +36,6 @@ uz\xnarx\productservice\payload\AuthenticationResponse$AuthenticationResponseBui
 uz\xnarx\productservice\exception\UserAlreadyExistException.class
 uz\xnarx\productservice\payload\AuthenticationRequest.class
 uz\xnarx\productservice\payload\ProductResponse.class
-uz\xnarx\productservice\configuration\OpenApiConfig.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto$ProductWithHistoryDtoBuilder.class
 uz\xnarx\productservice\controller\UserController.class
 uz\xnarx\productservice\repository\PriceHistoryRepository.class
