@@ -1,6 +1,8 @@
 package uz.xnarx.productservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -17,7 +19,6 @@ import uz.xnarx.productservice.configuration.JwtService;
 import uz.xnarx.productservice.entity.Users;
 import uz.xnarx.productservice.exception.BadRequestException;
 import uz.xnarx.productservice.exception.NotFoundException;
-import uz.xnarx.productservice.exception.UserAlreadyExistException;
 import uz.xnarx.productservice.payload.AuthenticationRequest;
 import uz.xnarx.productservice.payload.AuthenticationResponse;
 import uz.xnarx.productservice.payload.ProductResponse;
@@ -28,6 +29,7 @@ import uz.xnarx.productservice.utils.CommonUtills;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,15 +46,15 @@ public class UserService {
     public AuthenticationResponse registerUser(UserDto userDto) {
         try {
             Users user = new Users();
-            if (userDto.getId() != null) {
-                user = userRepository.findById(userDto.getId())
-                        .orElseThrow(() -> new UserAlreadyExistException("User not found."));
+            if (userDto.getUuid() != null) {
+                user = userRepository.findById(UUID.fromString(userDto.getUuid()))
+                        .orElseThrow(() -> new EntityNotFoundException("User not found."));
             }
             if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-                throw new UserAlreadyExistException("Email already in use");
+                throw new EntityExistsException("Email: "+ userDto.getEmail()+ " already in use");
             }
             if (userRepository.findByPhone(userDto.getPhone()) != null) {
-                throw new UserAlreadyExistException("Phone number already in use");
+                throw new EntityExistsException("Phone number: "+userDto.getPhone()+" already in use");
             }
 
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -73,8 +75,10 @@ public class UserService {
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
-                    .massage(userDto.getId() != null ? "Edited" : "Saved")
+                    .massage(userDto.getUuid() != null ? "Edited" : "Saved")
                     .build();
+        } catch (EntityExistsException | EntityNotFoundException e) {
+            throw e;
         } catch (Exception e) {
             return AuthenticationResponse.builder()
                     .massage(e.getMessage())
@@ -159,7 +163,7 @@ public class UserService {
 
     public UserDto getUserDtoFromUser(Users user) {
         UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
+        userDto.setUuid(user.getId().toString());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setAddress(user.getAddress());
@@ -170,10 +174,10 @@ public class UserService {
     }
 
     @Transactional
-    public ProductResponse getByUserId(Long id) {
+    public ProductResponse getByUserId(String id) {
 
         try {
-            Users users = userRepository.findById(id)
+            Users users = userRepository.findById(UUID.fromString(id))
                     .orElseThrow(() -> new IllegalArgumentException("Invalid user id"));
             return new ProductResponse("User found", true, getUserDtoFromUser(users));
         } catch (Exception e) {
@@ -182,16 +186,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto enableUser(Long userId) {
-        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDto enableUser(String userId) {
+        Users user = userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(true);
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
 
     @Transactional
-    public UserDto disableUser(Long userId) {
-        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDto disableUser(String userId) {
+        Users user = userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(false);
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);

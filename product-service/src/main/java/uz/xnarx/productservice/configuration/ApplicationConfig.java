@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.xnarx.productservice.auditing.ApplicationAuditAware;
 import uz.xnarx.productservice.repository.UserRepository;
 
+import java.util.UUID;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuditorAware<Long> auditorAware() {
+    public AuditorAware<UUID> auditorAware() {
         return new ApplicationAuditAware();
     }
 

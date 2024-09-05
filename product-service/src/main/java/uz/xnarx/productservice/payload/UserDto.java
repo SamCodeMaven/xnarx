@@ -1,5 +1,6 @@
 package uz.xnarx.productservice.payload;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +14,10 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
-    private Long id;
+    private String uuid;
 
     @NotBlank(message = "Password cannot be blank")
     private String password;
