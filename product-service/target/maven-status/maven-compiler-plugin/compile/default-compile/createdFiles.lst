@@ -1,7 +1,6 @@
 uz\xnarx\productservice\utils\CommonUtills.class
 uz\xnarx\productservice\payload\ProductDto$ProductDtoBuilder.class
 uz\xnarx\productservice\exception\BadRequestException.class
-uz\xnarx\productservice\exception\ResourceNotFoundException.class
 uz\xnarx\productservice\entity\enumurated\Role.class
 uz\xnarx\productservice\repository\ProductRepository.class
 uz\xnarx\productservice\auditing\ApplicationAuditAware.class
@@ -18,6 +17,7 @@ uz\xnarx\productservice\configuration\JwtAuthenticationFilter.class
 uz\xnarx\productservice\entity\PriceHistory$PriceHistoryBuilder.class
 uz\xnarx\productservice\payload\ProductResponse$ProductResponseBuilder.class
 uz\xnarx\productservice\XnarxApplication.class
+uz\xnarx\productservice\exception\GlobalExceptionHandler.class
 uz\xnarx\productservice\configuration\SecurityConfiguration.class
 uz\xnarx\productservice\entity\Product.class
 uz\xnarx\productservice\configuration\CorsConfig.class
@@ -33,9 +33,10 @@ uz\xnarx\productservice\payload\PriceHistoryDto$PriceHistoryDtoBuilder.class
 uz\xnarx\productservice\service\component\ProductComponent.class
 uz\xnarx\productservice\service\ProductService.class
 uz\xnarx\productservice\payload\AuthenticationResponse$AuthenticationResponseBuilder.class
-uz\xnarx\productservice\exception\UserAlreadyExistException.class
+uz\xnarx\productservice\payload\ErrorDto$ErrorDtoBuilder.class
 uz\xnarx\productservice\payload\AuthenticationRequest.class
 uz\xnarx\productservice\payload\ProductResponse.class
+uz\xnarx\productservice\payload\ErrorDto.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto$ProductWithHistoryDtoBuilder.class
 uz\xnarx\productservice\controller\UserController.class
 uz\xnarx\productservice\repository\PriceHistoryRepository.class
@@ -44,6 +45,7 @@ uz\xnarx\productservice\service\UserService.class
 uz\xnarx\productservice\utils\ApplicationConstants.class
 uz\xnarx\productservice\entity\Users.class
 uz\xnarx\productservice\payload\ProductDto.class
+uz\xnarx\productservice\payload\enums\ErrorCode.class
 uz\xnarx\productservice\payload\UserDto$UserDtoBuilder.class
 uz\xnarx\productservice\configuration\LogoutService.class
 uz\xnarx\productservice\repository\UserRepository.class

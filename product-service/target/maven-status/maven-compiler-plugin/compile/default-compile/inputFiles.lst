@@ -16,12 +16,13 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\Product.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\Users.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\BadRequestException.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\GlobalExceptionHandler.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\ImageNotFoundException.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\NotFoundException.java
-F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\ResourceNotFoundException.java
-F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\UserAlreadyExistException.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationRequest.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationResponse.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\enums\ErrorCode.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ErrorDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\PriceHistoryDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductResponse.java
