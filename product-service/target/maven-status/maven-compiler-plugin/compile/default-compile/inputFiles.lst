@@ -10,6 +10,7 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\controller\PriceHistoryController.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\controller\ProductController.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\controller\UserController.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\Characteristics.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\enumurated\Permission.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\enumurated\Role.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\entity\PriceHistory.java
@@ -21,6 +22,7 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\NotFoundException.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationRequest.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationResponse.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\CharacteristicsDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\enums\ErrorCode.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ErrorDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\PriceHistoryDto.java
@@ -28,6 +30,7 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductResponse.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\ProductWithHistoryDto.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\UserDto.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\CharacteristicsRepository.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\PriceHistoryRepository.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\ProductRepository.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\repository\UserRepository.java

@@ -1,6 +1,7 @@
 uz\xnarx\productservice\utils\CommonUtills.class
 uz\xnarx\productservice\payload\ProductDto$ProductDtoBuilder.class
 uz\xnarx\productservice\exception\BadRequestException.class
+uz\xnarx\productservice\repository\CharacteristicsRepository.class
 uz\xnarx\productservice\entity\enumurated\Role.class
 uz\xnarx\productservice\repository\ProductRepository.class
 uz\xnarx\productservice\auditing\ApplicationAuditAware.class
@@ -10,6 +11,7 @@ uz\xnarx\productservice\controller\PriceHistoryController.class
 uz\xnarx\productservice\payload\PriceHistoryDto.class
 uz\xnarx\productservice\configuration\SwaggerConfig.class
 uz\xnarx\productservice\exception\ImageNotFoundException.class
+uz\xnarx\productservice\payload\CharacteristicsDto.class
 uz\xnarx\productservice\payload\UserDto.class
 uz\xnarx\productservice\entity\Users$UsersBuilder.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto.class
@@ -19,9 +21,11 @@ uz\xnarx\productservice\payload\ProductResponse$ProductResponseBuilder.class
 uz\xnarx\productservice\XnarxApplication.class
 uz\xnarx\productservice\exception\GlobalExceptionHandler.class
 uz\xnarx\productservice\configuration\SecurityConfiguration.class
+uz\xnarx\productservice\entity\Characteristics.class
 uz\xnarx\productservice\entity\Product.class
 uz\xnarx\productservice\configuration\CorsConfig.class
 uz\xnarx\productservice\entity\Product$ProductBuilder.class
+uz\xnarx\productservice\payload\CharacteristicsDto$CharacteristicsDtoBuilder.class
 uz\xnarx\productservice\configuration\CorsConfig$1.class
 uz\xnarx\productservice\constant\ProjectEndpoint.class
 uz\xnarx\productservice\entity\enumurated\Permission.class

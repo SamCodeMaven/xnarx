@@ -1,5 +1,6 @@
 package uz.xnarx.productservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,4 +35,9 @@ public class Product{
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<PriceHistory> priceHistory;
+
+    @ManyToOne
+    @JoinColumn(name = "gsmarena_id")
+    @JsonBackReference
+    private Characteristics gsmarena;
 }

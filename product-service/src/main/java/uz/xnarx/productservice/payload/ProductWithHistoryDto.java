@@ -2,7 +2,6 @@ package uz.xnarx.productservice.payload;
 
 
 import lombok.*;
-import uz.xnarx.productservice.entity.PriceHistory;
 
 import java.util.List;
 
@@ -23,5 +22,6 @@ public class ProductWithHistoryDto {
 
     private List<PriceHistoryDto> priceHistory;
 
+    private CharacteristicsDto characteristics;
 
 }
