@@ -1,5 +1,6 @@
 package uz.xnarx.productservice.payload;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,12 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthenticationResponse {
 
   @JsonProperty("access_token")
   private String accessToken;
   @JsonProperty("refresh_token")
   private String refreshToken;
+
+  private String userId;
 
   private String massage;
 }

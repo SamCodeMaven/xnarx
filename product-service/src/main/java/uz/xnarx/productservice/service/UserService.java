@@ -75,7 +75,8 @@ public class UserService {
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
-                    .massage(userDto.getUuid() != null ? "Edited" : "Saved")
+                    .massage(userDto.getUuid() != null ? "Edited" :"Saved")
+                    .userId(user.getId().toString())
                     .build();
         } catch (EntityExistsException | EntityNotFoundException e) {
             throw e;
@@ -109,6 +110,7 @@ public class UserService {
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .massage("Authenticated")
+                .userId(user.getId().toString())
                 .build();
     }
 
