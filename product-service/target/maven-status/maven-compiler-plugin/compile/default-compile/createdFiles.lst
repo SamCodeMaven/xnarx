@@ -23,6 +23,7 @@ uz\xnarx\productservice\exception\GlobalExceptionHandler.class
 uz\xnarx\productservice\configuration\SecurityConfiguration.class
 uz\xnarx\productservice\entity\Characteristics.class
 uz\xnarx\productservice\entity\Product.class
+uz\xnarx\productservice\mapping\UserMapper.class
 uz\xnarx\productservice\configuration\CorsConfig.class
 uz\xnarx\productservice\entity\Product$ProductBuilder.class
 uz\xnarx\productservice\payload\CharacteristicsDto$CharacteristicsDtoBuilder.class

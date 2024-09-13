@@ -20,6 +20,7 @@ F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\produc
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\GlobalExceptionHandler.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\ImageNotFoundException.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\exception\NotFoundException.java
+F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\mapping\UserMapper.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationRequest.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\AuthenticationResponse.java
 F:\SmartBank\MyProject\Xnarx\xnarx\product-service\src\main\java\uz\xnarx\productservice\payload\CharacteristicsDto.java
