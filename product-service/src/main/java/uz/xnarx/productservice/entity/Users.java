@@ -10,7 +10,6 @@ import uz.xnarx.productservice.entity.enumurated.Role;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 @Data
@@ -21,8 +20,8 @@ import java.util.UUID;
 public class Users implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String password;
 

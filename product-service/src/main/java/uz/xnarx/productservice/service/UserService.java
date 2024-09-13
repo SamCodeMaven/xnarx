@@ -19,6 +19,7 @@ import uz.xnarx.productservice.configuration.JwtService;
 import uz.xnarx.productservice.entity.Users;
 import uz.xnarx.productservice.exception.BadRequestException;
 import uz.xnarx.productservice.exception.NotFoundException;
+import uz.xnarx.productservice.mapping.UserMapper;
 import uz.xnarx.productservice.payload.AuthenticationRequest;
 import uz.xnarx.productservice.payload.AuthenticationResponse;
 import uz.xnarx.productservice.payload.ProductResponse;
@@ -29,7 +30,6 @@ import uz.xnarx.productservice.utils.CommonUtills;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,8 +46,8 @@ public class UserService {
     public AuthenticationResponse registerUser(UserDto userDto) {
         try {
             Users user = new Users();
-            if (userDto.getUuid() != null) {
-                user = userRepository.findById(UUID.fromString(userDto.getUuid()))
+            if (userDto.getId() != null) {
+                user = userRepository.findById(userDto.getId())
                         .orElseThrow(() -> new EntityNotFoundException("User not found."));
             }
             if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
@@ -75,7 +75,7 @@ public class UserService {
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
-                    .massage(userDto.getUuid() != null ? "Edited" :"Saved")
+                    .massage(userDto.getId() != null ? "Edited" :"Saved")
                     .userId(user.getId().toString())
                     .build();
         } catch (EntityExistsException | EntityNotFoundException e) {
@@ -157,47 +157,35 @@ public class UserService {
                     true,
                     users.getTotalElements(),
                     users.getTotalPages(),
-                    users.getContent().stream().map(this::getUserDtoFromUser).collect(Collectors.toList()));
+                    users.getContent().stream().map(UserMapper::toDto).collect(Collectors.toList()));
         } catch (Exception e) {
             return new ProductResponse("Get all users failed", false);
         }
     }
 
-    public UserDto getUserDtoFromUser(Users user) {
-        UserDto userDto = new UserDto();
-        userDto.setUuid(user.getId().toString());
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setAddress(user.getAddress());
-        userDto.setEmail(user.getEmail());
-        userDto.setPhone(user.getPhone());
-        userDto.setCreatedDate(user.getCreatedDate());
-        return userDto;
-    }
-
     @Transactional
-    public ProductResponse getByUserId(String id) {
+    public ProductResponse getByUserId(Long id) {
 
         try {
-            Users users = userRepository.findById(UUID.fromString(id))
+            Users users = userRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid user id"));
-            return new ProductResponse("User found", true, getUserDtoFromUser(users));
+            return new ProductResponse("User found", true, UserMapper.toDto(users));
         } catch (Exception e) {
             return new ProductResponse("Get by user id failed", false);
         }
     }
 
     @Transactional
-    public UserDto enableUser(String userId) {
-        Users user = userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDto enableUser(Long userId) {
+        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(true);
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
 
     @Transactional
-    public UserDto disableUser(String userId) {
-        Users user = userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDto disableUser(Long userId) {
+        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(false);
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
@@ -205,6 +193,6 @@ public class UserService {
 
     public UserDto getUserByToken() {
         Users users = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return objectMapper.convertValue(users, UserDto.class);
+        return UserMapper.toDto(users);
     }
 }

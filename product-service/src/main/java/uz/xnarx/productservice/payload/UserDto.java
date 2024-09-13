@@ -17,7 +17,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
-    private String uuid;
+    private Long id;
 
     @NotBlank(message = "Password cannot be blank")
     private String password;

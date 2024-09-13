@@ -88,7 +88,7 @@ public class UserController {
 
                             schema = @Schema(implementation = UserDto.class))))
     @GetMapping(value = ProjectEndpoint.USER_ID)
-    HttpEntity<?> getUserById(@PathVariable(value = "id") String id) {
+    HttpEntity<?> getUserById(@PathVariable(value = "id") Long id) {
         ProductResponse apiResponse = userService.getByUserId(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
@@ -111,7 +111,7 @@ public class UserController {
 
                             schema = @Schema(implementation = UserDto.class))))
     @PutMapping(value = ProjectEndpoint.USER_ENABLE)
-    public ResponseEntity<UserDto> enableUser(@PathVariable String userId) {
+    public ResponseEntity<UserDto> enableUser(@PathVariable Long userId) {
         UserDto enabledUser = userService.enableUser(userId);
         return ResponseEntity.ok(enabledUser);
     }
@@ -122,7 +122,7 @@ public class UserController {
 
                             schema = @Schema(implementation = UserDto.class))))
     @PutMapping(value = ProjectEndpoint.USER_DISABLE)
-    public ResponseEntity<UserDto> disableUser(@PathVariable String userId) {
+    public ResponseEntity<UserDto> disableUser(@PathVariable Long userId) {
         UserDto disabledUser = userService.disableUser(userId);
         return ResponseEntity.ok(disabledUser);
     }

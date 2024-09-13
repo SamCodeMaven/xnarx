@@ -8,13 +8,12 @@ import uz.xnarx.productservice.entity.Users;
 
 
 import java.util.Optional;
-import java.util.UUID;
 
-public class ApplicationAuditAware implements AuditorAware<UUID> {
+public class ApplicationAuditAware implements AuditorAware<Long> {
 
 
     @Override
-    public Optional<UUID> getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         Authentication authentication =
                 SecurityContextHolder
                         .getContext()
