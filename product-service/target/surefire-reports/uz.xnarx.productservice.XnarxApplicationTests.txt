@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: uz.xnarx.productservice.XnarxApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.365 s -- in uz.xnarx.productservice.XnarxApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.12 s -- in uz.xnarx.productservice.XnarxApplicationTests

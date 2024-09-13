@@ -28,8 +28,9 @@ import uz.xnarx.productservice.repository.UserRepository;
 import uz.xnarx.productservice.utils.CommonUtills;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,47 +46,58 @@ public class UserService {
 
     public AuthenticationResponse registerUser(UserDto userDto) {
         try {
-            Users user = new Users();
+            Users user;
+
+            // Check if ID is provided
             if (userDto.getId() != null) {
                 user = userRepository.findById(userDto.getId())
                         .orElseThrow(() -> new EntityNotFoundException("User not found."));
-            }
-            if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-                throw new EntityExistsException("Email: "+ userDto.getEmail()+ " already in use");
-            }
-            if (userRepository.findByPhone(userDto.getPhone()) != null) {
-                throw new EntityExistsException("Phone number: "+userDto.getPhone()+" already in use");
+
+                // Check if the user with the same ID already exists
+                if (userRepository.existsById(userDto.getId())) {
+                    throw new EntityExistsException("User with ID: " + userDto.getId() + " already exists.");
+                }
+            } else {
+                user = new Users();
             }
 
+            // Check for duplicate email or phone
+            if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+                throw new EntityExistsException("Email: " + userDto.getEmail() + " already in use");
+            }
+
+            if (userRepository.findByPhone(userDto.getPhone()).isPresent()) {
+                throw new EntityExistsException("Phone number: " + userDto.getPhone() + " already in use");
+            }
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setAddress(userDto.getAddress());
             user.setEmail(userDto.getEmail());
             user.setPhone(userDto.getPhone());
-            user.setCreatedDate(new Date());
+            user.setCreated_at(LocalDateTime.now());
+            user.setUpdated_at(LocalDateTime.now());
             user.setRole(userDto.getRole());
             user.setEnabled(true);
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
-
-
             userRepository.save(user);
 
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
-                    .massage(userDto.getId() != null ? "Edited" :"Saved")
+                    .message(userDto.getId() != null ? "Edited" : "Saved")
                     .userId(user.getId().toString())
                     .build();
         } catch (EntityExistsException | EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {
             return AuthenticationResponse.builder()
-                    .massage(e.getMessage())
+                    .message("An error occurred: " + e.getMessage())
                     .build();
         }
     }
+
 
     @Transactional
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -109,7 +121,7 @@ public class UserService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
-                .massage("Authenticated")
+                .message("Authenticated")
                 .userId(user.getId().toString())
                 .build();
     }
@@ -179,6 +191,7 @@ public class UserService {
     public UserDto enableUser(Long userId) {
         Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(true);
+        user.setUpdated_at(LocalDateTime.now());
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
@@ -187,6 +200,7 @@ public class UserService {
     public UserDto disableUser(Long userId) {
         Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(false);
+        user.setUpdated_at(LocalDateTime.now());
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
@@ -195,4 +209,47 @@ public class UserService {
         Users users = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return UserMapper.toDto(users);
     }
+
+    public AuthenticationResponse editUser(UserDto userDto) {
+        // Find the user by ID
+        Users existingUser = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found."));
+
+        // Check if email is already used by another user
+        Optional<Users> userWithSameEmail = userRepository.findByEmail(userDto.getEmail());
+        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(existingUser.getId())) {
+            throw new EntityExistsException("Email: " + userDto.getEmail() + " is already in use by another user.");
+        }
+
+        // Check if phone is already used by another user
+        Optional<Users> userWithSamePhone = userRepository.findByPhone(userDto.getPhone());
+        if (userWithSamePhone.isPresent() && !userWithSamePhone.get().getId().equals(existingUser.getId())) {
+            throw new EntityExistsException("Phone number: " + userDto.getPhone() + " is already in use by another user.");
+        }
+        existingUser.setFirstName(userDto.getFirstName() != null ? userDto.getFirstName() : existingUser.getFirstName());
+        existingUser.setLastName(userDto.getLastName() != null ? userDto.getLastName() : existingUser.getLastName());
+        existingUser.setAddress(userDto.getAddress() != null ? userDto.getAddress() : existingUser.getAddress());
+        existingUser.setUpdated_at(LocalDateTime.now());
+        // Update password if provided, otherwise keep the existing one
+        if (userDto.getPassword() != null) {
+            existingUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+
+        existingUser.setRole(userDto.getRole() != null ? userDto.getRole() : existingUser.getRole());
+
+        userRepository.save(existingUser);
+
+        // Generate updated JWT tokens
+        var jwtToken = jwtService.generateToken(existingUser);
+        var refreshToken = jwtService.generateRefreshToken(existingUser);
+
+        // Return a success response
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .message("User details updated successfully.")
+                .userId(existingUser.getId().toString())
+                .build();
+    }
+
 }

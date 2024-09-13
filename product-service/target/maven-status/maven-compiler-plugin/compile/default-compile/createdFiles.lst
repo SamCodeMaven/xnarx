@@ -12,6 +12,7 @@ uz\xnarx\productservice\payload\PriceHistoryDto.class
 uz\xnarx\productservice\configuration\SwaggerConfig.class
 uz\xnarx\productservice\exception\ImageNotFoundException.class
 uz\xnarx\productservice\payload\CharacteristicsDto.class
+uz\xnarx\productservice\payload\ExceptionDto.class
 uz\xnarx\productservice\payload\UserDto.class
 uz\xnarx\productservice\entity\Users$UsersBuilder.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto.class
@@ -38,10 +39,8 @@ uz\xnarx\productservice\payload\PriceHistoryDto$PriceHistoryDtoBuilder.class
 uz\xnarx\productservice\service\component\ProductComponent.class
 uz\xnarx\productservice\service\ProductService.class
 uz\xnarx\productservice\payload\AuthenticationResponse$AuthenticationResponseBuilder.class
-uz\xnarx\productservice\payload\ErrorDto$ErrorDtoBuilder.class
 uz\xnarx\productservice\payload\AuthenticationRequest.class
 uz\xnarx\productservice\payload\ProductResponse.class
-uz\xnarx\productservice\payload\ErrorDto.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto$ProductWithHistoryDtoBuilder.class
 uz\xnarx\productservice\controller\UserController.class
 uz\xnarx\productservice\repository\PriceHistoryRepository.class
@@ -55,3 +54,4 @@ uz\xnarx\productservice\payload\UserDto$UserDtoBuilder.class
 uz\xnarx\productservice\configuration\LogoutService.class
 uz\xnarx\productservice\repository\UserRepository.class
 uz\xnarx\productservice\controller\ProductController.class
+uz\xnarx\productservice\payload\ExceptionDto$ErrorResult.class

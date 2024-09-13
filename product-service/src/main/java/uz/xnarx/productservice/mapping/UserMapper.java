@@ -17,7 +17,8 @@ public class UserMapper {
                 .address(user.getAddress())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .createdDate(user.getCreatedDate())
+                .created_at(user.getCreated_at())
+                .updated_at(user.getUpdated_at())
                 .enabled(user.isEnabled())
                 .build();
     }

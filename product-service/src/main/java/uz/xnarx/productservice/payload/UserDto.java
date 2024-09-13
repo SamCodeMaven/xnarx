@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.xnarx.productservice.entity.enumurated.Role;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -37,7 +37,9 @@ public class UserDto {
     @NotBlank(message = "Role cannot be blank")
     private Role role;
 
-    private Date createdDate;
+    private LocalDateTime created_at;
+
+    private LocalDateTime updated_at;
 
     private boolean enabled;
 

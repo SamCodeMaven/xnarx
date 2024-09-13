@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uz.xnarx.productservice.entity.enumurated.Role;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 
 @Builder
 @Data
@@ -42,7 +42,9 @@ public class Users implements UserDetails {
 
     private String address;
 
-    private Date createdDate;
+    private LocalDateTime created_at;
+
+    private LocalDateTime updated_at;
 
     private boolean enabled;
 

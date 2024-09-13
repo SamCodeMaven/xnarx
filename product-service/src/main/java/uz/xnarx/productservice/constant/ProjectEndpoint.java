@@ -8,6 +8,7 @@ public class ProjectEndpoint {
     public static final String USER_AUTH="/api/auth/authenticate";
     public static final String USER_TOKEN="/api/auth/refresh-token";
     public static final String USER_REGISTER="/api/user/register";
+    public static final String USER_EDIT="/api/user/edit";
     public static final String USERS="/api/user/getAll";
     public static final String USER_ID="/api/user/getById/{id}";
     public static final String USER_INFO="/api/user/info";
@@ -18,4 +19,5 @@ public class ProjectEndpoint {
     public static final String PRODUCT_NAME = "api/product/search";
     public static final String PRODUCT_ID = "api/product/search/{id}";
     public static final String PRICE_HISTORY = "api/priceHistory/search/{productId}";
+
 }

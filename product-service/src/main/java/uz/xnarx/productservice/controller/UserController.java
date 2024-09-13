@@ -9,8 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.xnarx.productservice.constant.ProjectEndpoint;
@@ -27,23 +28,33 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
-    @Operation(summary = "Register user/ Only User with ADMIN Role can register new user",
+    @Operation(summary = "Register user. This api open for both user type(ADMIN and USER)",
             responses = @ApiResponse(responseCode = "200",
                     content = @Content(
                             schema = @Schema(implementation = UserDto.class)))
     )
     @PostMapping(value = ProjectEndpoint.USER_REGISTER)
-    public ResponseEntity<?> register(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody UserDto userDto) {
+        log.info("Register user started.");
         AuthenticationResponse response = userService.registerUser(userDto);
-        if ("Saved".equals(response.getMassage())) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(response); // Return 201 Created
-        } else if ("Edited".equals(response.getMassage())) {
-            return ResponseEntity.ok(response); // Return 200 OK
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); // Return 400 Bad Request or another status
-        }
+        log.info("Register user finished.");
+        return ResponseEntity.ok(response);
+
+    }
+    @Operation(summary = "User edit",
+            responses = @ApiResponse(responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = UserDto.class)))
+    )
+    @PutMapping(value = ProjectEndpoint.USER_EDIT)
+    public ResponseEntity<AuthenticationResponse> edit(@Valid @RequestBody UserDto userDto) {
+        log.info("Edit user started.");
+        AuthenticationResponse response=userService.editUser(userDto);
+        log.info("Edit user finished.");
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Authentication with email and Password",

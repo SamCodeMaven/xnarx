@@ -21,5 +21,5 @@ public class AuthenticationResponse {
 
   private String userId;
 
-  private String massage;
+  private String message;
 }
