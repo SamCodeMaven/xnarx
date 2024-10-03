@@ -1,6 +1,10 @@
 package uz.xnarx.productservice.payload;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.sql.Timestamp;
 
@@ -25,6 +29,8 @@ public class ProductDto {
     private String store_name;
 
     private String product_link;
+
+    private Boolean isActive;
 
     public ProductDto(Integer id, String name, String product_image, String category_name) {
         this.id = id;

@@ -42,16 +42,16 @@ public class ProductController {
     @GetMapping(value = ProjectEndpoint.PRODUCT_CATEGORY)
     public ResponseEntity<ProductResponse> getMinMaxPriceProductByCategory(@PathVariable String categoryName,
                                                                            @RequestParam(value = "minPrice",
-                                                        defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
+                                                                                   defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
                                                                            @RequestParam(value = "maxPrice",
-                                                        defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
+                                                                                   defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
                                                                            @RequestParam(value = "orderType",
-                                                        defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
+                                                                                   defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
 
                                                                            @RequestParam(value = "page",
-                                                        defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER) Integer page,
+                                                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER) Integer page,
                                                                            @RequestParam(value = "size",
-                                                        defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE) Integer size) {
+                                                                                   defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE) Integer size) {
         return ResponseEntity.ok(productService.getMinMaxProduct(categoryName, minPrice, maxPrice, orderType, page, size));
     }
 
@@ -62,20 +62,21 @@ public class ProductController {
                                     schema = @Schema(implementation = ProductDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_NAME)
     public ResponseEntity<ProductResponse> getProductByName(@RequestParam(value = "name") String productName,
-                                          @RequestParam(value = "minPrice",
-                                          defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
-                                          @RequestParam(value = "maxPrice",
-                                          defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
-                                          @RequestParam(value = "orderType",
-                                          defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
+                                                            @RequestParam(value = "minPrice",
+                                                                    defaultValue = ApplicationConstants.DEFAULT_MIN_PRICE) Double minPrice,
+                                                            @RequestParam(value = "maxPrice",
+                                                                    defaultValue = ApplicationConstants.DEFAULT_MAX_PRICE) Double maxPrice,
+                                                            @RequestParam(value = "orderType",
+                                                                    defaultValue = ApplicationConstants.DEFAULT_ORDER_TYPE) Boolean orderType,
 
-                                          @RequestParam(value = "page",
-                                                  defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER)Integer page,
-                                          @RequestParam(value = "size",
-                                                  defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE)Integer size
-    ){
-        return ResponseEntity.ok(productService.getProductByName(productName,minPrice,maxPrice,orderType,page,size));
+                                                            @RequestParam(value = "page",
+                                                                    defaultValue = ApplicationConstants.DEFAULT_PAGE_NUMBER) Integer page,
+                                                            @RequestParam(value = "size",
+                                                                    defaultValue = ApplicationConstants.DEFAULT_PAGE_SIZE) Integer size
+    ) {
+        return ResponseEntity.ok(productService.getProductByName(productName, minPrice, maxPrice, orderType, page, size));
     }
+
     @Operation(summary = "get product by Id",
             responses = @ApiResponse(responseCode = "200",
                     content = @Content(
@@ -83,7 +84,7 @@ public class ProductController {
                                     schema = @Schema(implementation = ProductWithHistoryDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_ID)
     private ResponseEntity<ProductWithHistoryDto> getProductById(@PathVariable(value = "id") Integer productId) {
-        ProductWithHistoryDto historyDto=productService.findByProductId(productId);
+        ProductWithHistoryDto historyDto = productService.findByProductId(productId);
         return ResponseEntity.ok(historyDto);
     }
 }

@@ -69,6 +69,7 @@ public class UserService {
             if (userRepository.findByPhone(userDto.getPhone()).isPresent()) {
                 throw new EntityExistsException("Phone number: " + userDto.getPhone() + " already in use");
             }
+            user.setId(1L);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());

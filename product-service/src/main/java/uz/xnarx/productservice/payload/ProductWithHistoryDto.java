@@ -20,6 +20,8 @@ public class ProductWithHistoryDto {
 
     private String categoryName;
 
+    private Boolean isActive = true;
+
     private List<PriceHistoryDto> priceHistory;
 
     private CharacteristicsDto characteristics;
