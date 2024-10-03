@@ -93,7 +93,12 @@ public class ProductService {
             }
         }
 
-
         return productWithHistoryDtos;
+    }
+
+    public void updateIsActiveForAllProducts() {
+        List<Product> productsWithNullIsActive = productRepository.findAll();
+        productsWithNullIsActive.forEach(product -> product.setIsActive(true));
+        productRepository.saveAll(productsWithNullIsActive);
     }
 }

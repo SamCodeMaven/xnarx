@@ -87,4 +87,10 @@ public class ProductController {
         ProductWithHistoryDto historyDto = productService.findByProductId(productId);
         return ResponseEntity.ok(historyDto);
     }
+
+    @PutMapping(value = "api/product/update")
+    private ResponseEntity<?> updateProduct() {
+        productService.updateIsActiveForAllProducts();
+        return ResponseEntity.ok().build();
+    }
 }

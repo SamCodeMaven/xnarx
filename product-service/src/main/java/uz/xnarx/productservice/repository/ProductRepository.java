@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    List<Product> findAllByIsActiveIsNull();
+
     @Query("SELECT NEW uz.xnarx.productservice.payload.ProductDto(p.id, p.productName, p.productImage, p.categoryName, ph.date, MIN(ph.price), ph.storeName, ph.productLink, p.isActive) " +
             "FROM Product p " +
             "JOIN p.priceHistory ph " +
