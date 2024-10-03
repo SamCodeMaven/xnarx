@@ -41,6 +41,7 @@ uz\xnarx\productservice\service\ProductService.class
 uz\xnarx\productservice\payload\AuthenticationResponse$AuthenticationResponseBuilder.class
 uz\xnarx\productservice\payload\AuthenticationRequest.class
 uz\xnarx\productservice\payload\ProductResponse.class
+uz\xnarx\productservice\constant\ProjectConstants.class
 uz\xnarx\productservice\payload\ProductWithHistoryDto$ProductWithHistoryDtoBuilder.class
 uz\xnarx\productservice\controller\UserController.class
 uz\xnarx\productservice\repository\PriceHistoryRepository.class

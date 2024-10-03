@@ -9,7 +9,11 @@ import uz.xnarx.productservice.entity.Characteristics;
 import uz.xnarx.productservice.entity.PriceHistory;
 import uz.xnarx.productservice.entity.Product;
 import uz.xnarx.productservice.exception.NotFoundException;
-import uz.xnarx.productservice.payload.*;
+import uz.xnarx.productservice.payload.CharacteristicsDto;
+import uz.xnarx.productservice.payload.PriceHistoryDto;
+import uz.xnarx.productservice.payload.ProductDto;
+import uz.xnarx.productservice.payload.ProductResponse;
+import uz.xnarx.productservice.payload.ProductWithHistoryDto;
 import uz.xnarx.productservice.repository.CharacteristicsRepository;
 import uz.xnarx.productservice.repository.PriceHistoryRepository;
 import uz.xnarx.productservice.repository.ProductRepository;
@@ -18,6 +22,8 @@ import uz.xnarx.productservice.utils.CommonUtills;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static uz.xnarx.productservice.constant.ProjectConstants.DATE_RANGE;
 
 @Service
 @RequiredArgsConstructor
@@ -79,7 +85,7 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
-        LocalDate date = LocalDate.now().minusDays(100);
+        LocalDate date = LocalDate.now().minusDays(DATE_RANGE);
         List<PriceHistory> priceHistoryList = priceHistoryRepository.findByProductIdOrderByDateDesc(productId, date);
 
         ProductWithHistoryDto productWithHistoryDtos = objectMapper.convertValue(product, ProductWithHistoryDto.class);
