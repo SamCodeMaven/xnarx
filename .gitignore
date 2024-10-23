@@ -11,16 +11,12 @@
 
 # Maven
 target/
-!**/src/main/**/target/
-!**/src/test/**/target/
 !.mvn/wrapper/maven-wrapper.jar
 .mvn/wrapper/maven-wrapper.properties
 
 # Gradle
 .gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 # STS (Spring Tool Suite)
 .apt_generated
@@ -72,13 +68,12 @@ desktop.ini
 $RECYCLE.BIN/
 
 # Logs and databases
-
 *.sql
 *.sqlite
 
 # IDE specific cache and config files
-*.idea
-*.vscode
+.idea
+.vscode
 
 # Node Modules for frontend (if applicable)
 node_modules/
@@ -89,4 +84,3 @@ npm-debug.log
 
 # Local environment configuration
 .env
-
