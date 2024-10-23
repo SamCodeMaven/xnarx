@@ -21,6 +21,7 @@ import uz.xnarx.productservice.utils.CommonUtills;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static uz.xnarx.productservice.constant.ProjectConstants.DATE_RANGE;
@@ -46,17 +47,17 @@ public class ProductService {
     @Transactional
     public ProductResponse getMinMaxProduct(String categoryName, Double minPrice, Double maxPrice, Boolean orderType, Integer page, Integer size) {
         Page<ProductDto> productPage = null;
-        if (orderType) {
+        if (Boolean.TRUE.equals(orderType)) {
             productPage = productRepository.
                     getMinMaxProductASC(categoryName, minPrice, maxPrice, CommonUtills.simplePageable(page, size));
         }
-        if (!orderType) {
+        if (Boolean.FALSE.equals(orderType)) {
             productPage = productRepository.
                     getMinMaxProductDESC(categoryName, minPrice, maxPrice, CommonUtills.simplePageable(page, size));
         }
         return new ProductResponse("Success",
                 true,
-                productPage.getTotalElements(),
+                Objects.requireNonNull(productPage).getTotalElements(),
                 productPage.getTotalPages(),
                 productPage.getContent());
     }
@@ -64,7 +65,7 @@ public class ProductService {
     @Transactional
     public ProductResponse getProductByName(String name, Double min, Double max, Boolean orderType, Integer page, Integer size) {
         Page<ProductDto> productPage;
-        if (orderType) {
+        if (Boolean.TRUE.equals(orderType)) {
             productPage = productRepository
                     .searchByNameASC(name, min, max, CommonUtills.simplePageable(page, size));
         } else {

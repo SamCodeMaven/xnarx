@@ -41,6 +41,7 @@ public class UserService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
     private final ObjectMapper objectMapper;
 
 
@@ -48,12 +49,10 @@ public class UserService {
         try {
             Users user;
 
-            // Check if ID is provided
             if (userDto.getId() != null) {
                 user = userRepository.findById(userDto.getId())
                         .orElseThrow(() -> new EntityNotFoundException("User not found."));
 
-                // Check if the user with the same ID already exists
                 if (userRepository.existsById(userDto.getId())) {
                     throw new EntityExistsException("User with ID: " + userDto.getId() + " already exists.");
                 }
@@ -69,21 +68,10 @@ public class UserService {
             if (userRepository.findByPhone(userDto.getPhone()).isPresent()) {
                 throw new EntityExistsException("Phone number: " + userDto.getPhone() + " already in use");
             }
-            user.setId(1L);
-            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            user.setFirstName(userDto.getFirstName());
-            user.setLastName(userDto.getLastName());
-            user.setAddress(userDto.getAddress());
-            user.setEmail(userDto.getEmail());
-            user.setPhone(userDto.getPhone());
-            user.setCreated_at(LocalDateTime.now());
-            user.setUpdated_at(LocalDateTime.now());
-            user.setRole(userDto.getRole());
-            user.setEnabled(true);
+            user = userMapper.toEntity(user, userDto);
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
             userRepository.save(user);
-
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(refreshToken)
@@ -114,10 +102,10 @@ public class UserService {
         }
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        if (!user.isEnabled()){
+        if (!user.isEnabled()) {
             throw new BadRequestException("User is disabled");
         }
-        var jwtToken = jwtService.generateToken(Map.of("role", user.getRole().name()),user);
+        var jwtToken = jwtService.generateToken(Map.of("role", user.getRole().name()), user);
         var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
@@ -192,7 +180,7 @@ public class UserService {
     public UserDto enableUser(Long userId) {
         Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(true);
-        user.setUpdated_at(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
@@ -201,7 +189,7 @@ public class UserService {
     public UserDto disableUser(Long userId) {
         Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setEnabled(false);
-        user.setUpdated_at(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         Users updatedUser = userRepository.save(user);
         return objectMapper.convertValue(updatedUser, UserDto.class);
     }
@@ -212,17 +200,15 @@ public class UserService {
     }
 
     public AuthenticationResponse editUser(UserDto userDto) {
-        // Find the user by ID
         Users existingUser = userRepository.findById(userDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found."));
 
-        // Check if email is already used by another user
         Optional<Users> userWithSameEmail = userRepository.findByEmail(userDto.getEmail());
         if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(existingUser.getId())) {
             throw new EntityExistsException("Email: " + userDto.getEmail() + " is already in use by another user.");
         }
 
-        // Check if phone is already used by another user
+
         Optional<Users> userWithSamePhone = userRepository.findByPhone(userDto.getPhone());
         if (userWithSamePhone.isPresent() && !userWithSamePhone.get().getId().equals(existingUser.getId())) {
             throw new EntityExistsException("Phone number: " + userDto.getPhone() + " is already in use by another user.");
@@ -230,8 +216,7 @@ public class UserService {
         existingUser.setFirstName(userDto.getFirstName() != null ? userDto.getFirstName() : existingUser.getFirstName());
         existingUser.setLastName(userDto.getLastName() != null ? userDto.getLastName() : existingUser.getLastName());
         existingUser.setAddress(userDto.getAddress() != null ? userDto.getAddress() : existingUser.getAddress());
-        existingUser.setUpdated_at(LocalDateTime.now());
-        // Update password if provided, otherwise keep the existing one
+        existingUser.setUpdatedAt(LocalDateTime.now());
         if (userDto.getPassword() != null) {
             existingUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
@@ -240,11 +225,9 @@ public class UserService {
 
         userRepository.save(existingUser);
 
-        // Generate updated JWT tokens
         var jwtToken = jwtService.generateToken(existingUser);
         var refreshToken = jwtService.generateRefreshToken(existingUser);
 
-        // Return a success response
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)

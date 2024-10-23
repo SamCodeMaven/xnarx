@@ -83,14 +83,13 @@ public class ProductController {
                             array = @ArraySchema(
                                     schema = @Schema(implementation = ProductWithHistoryDto.class)))))
     @GetMapping(value = ProjectEndpoint.PRODUCT_ID)
-    private ResponseEntity<ProductWithHistoryDto> getProductById(@PathVariable(value = "id") Integer productId) {
+    public ResponseEntity<ProductWithHistoryDto> getProductById(@PathVariable(value = "id") Integer productId) {
         ProductWithHistoryDto historyDto = productService.findByProductId(productId);
         return ResponseEntity.ok(historyDto);
     }
 
     @PutMapping(value = "api/product/update")
-    private ResponseEntity<?> updateProduct() {
+    public void updateProduct() {
         productService.updateIsActiveForAllProducts();
-        return ResponseEntity.ok().build();
     }
 }

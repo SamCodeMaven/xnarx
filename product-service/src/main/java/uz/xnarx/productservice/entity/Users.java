@@ -36,15 +36,15 @@ public class Users implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Pattern(regexp = "^[+][9][9][8][0-9]{9}$", message = "Phone number must be 13 digits.")
+    @Pattern(regexp = "^+998[0-9]{9}$", message = "Phone number must be 13 digits.")
     @Column(nullable = false, unique = true)
     private String phone;
 
     private String address;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     private boolean enabled;
 
