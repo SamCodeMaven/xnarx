@@ -1,5 +1,7 @@
 # Maven Wrapper
 !.mvn/wrapper/maven-wrapper.jar
+# Ignore all compiled class files
+*.class
 
 # Ignore all target directories except for src/test
 target/
