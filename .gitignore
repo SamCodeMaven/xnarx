@@ -1,32 +1,92 @@
-HELP.md
-!.mvn/wrapper/maven-wrapper.jar
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.car
+*.zip
+*.log
+*.rar
+
+# Maven
+target/
 !**/src/main/**/target/
 !**/src/test/**/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
 
-### STS ###
+# Gradle
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# STS (Spring Tool Suite)
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# Visual Studio Code
 .vscode/
+
+# Eclipse
+.cxxcoverage/
+.externalToolBuilders/
+.metadata/
+.recommenders/
+.antlr_temp/
+
+# Temporary files and directories
+*.tmp
+*.swp
+*.bak
+*.backup
+*~
+*.orig
+*.rej
+*#
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Logs and databases
+
+*.sql
+*.sqlite
+
+# IDE specific cache and config files
+*.idea
+*.vscode
+
+# Node Modules for frontend (if applicable)
+node_modules/
+npm-debug.log
+
+# Yarn
+.yarn/
+
+# Local environment configuration
+.env
+
