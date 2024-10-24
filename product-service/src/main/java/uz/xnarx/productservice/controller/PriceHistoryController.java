@@ -13,7 +13,6 @@ import uz.xnarx.productservice.payload.PriceHistoryDto;
 import uz.xnarx.productservice.payload.ProductResponse;
 import uz.xnarx.productservice.service.PriceHistoryService;
 
-
 @RestController
 @RequiredArgsConstructor
 public class PriceHistoryController {

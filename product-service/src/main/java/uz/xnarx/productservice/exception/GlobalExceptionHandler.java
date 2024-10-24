@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import uz.xnarx.productservice.payload.ErrorDto;
 import uz.xnarx.productservice.payload.ExceptionDto;
 
 import java.util.Date;
@@ -31,6 +32,15 @@ public class GlobalExceptionHandler {
         log.error(": {}",e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorDto> handleCustomException(CustomException ex) {
+        log.error("ErrorStatus: {}, Message: {} ", ex.getCode(), ex.getMessage());
+
+        return ResponseEntity
+                .status(ex.getCode())
+                .body(new ErrorDto(ex.getCode(), ex.getMessage()));
+    }
+
 }
 
 

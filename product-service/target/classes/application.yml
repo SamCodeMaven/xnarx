@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: product-service
@@ -25,9 +28,6 @@ spring:
       fail-on-empty-beans: false
     time-zone: Asia/Tashkent
 
-server:
-  port: 8080
-
 application:
   security:
     jwt:
@@ -35,3 +35,23 @@ application:
       expiration: 86400000
       refresh-token:
         expiration: 604800000
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+

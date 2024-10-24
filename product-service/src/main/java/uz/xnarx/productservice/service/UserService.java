@@ -18,13 +18,17 @@ import org.springframework.stereotype.Service;
 import uz.xnarx.productservice.configuration.JwtService;
 import uz.xnarx.productservice.entity.Users;
 import uz.xnarx.productservice.exception.BadRequestException;
+import uz.xnarx.productservice.exception.CustomException;
 import uz.xnarx.productservice.exception.NotFoundException;
 import uz.xnarx.productservice.mapping.UserMapper;
 import uz.xnarx.productservice.payload.AuthenticationRequest;
 import uz.xnarx.productservice.payload.AuthenticationResponse;
 import uz.xnarx.productservice.payload.ProductResponse;
 import uz.xnarx.productservice.payload.UserDto;
+import uz.xnarx.productservice.payload.enums.ErrorCode;
 import uz.xnarx.productservice.repository.UserRepository;
+import uz.xnarx.productservice.service.email.EmailSender;
+import uz.xnarx.productservice.service.email.EmailValidator;
 import uz.xnarx.productservice.utils.CommonUtills;
 
 import java.io.IOException;
@@ -38,14 +42,28 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final EmailValidator emailValidator;
+
+    private final EmailSender emailSender;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenService verificationTokenService;
+
     private final UserMapper userMapper;
     private final ObjectMapper objectMapper;
+    private final AuthenticationManager authenticationManager;
+
+    private final PasswordEncoder passwordEncoder;
+
 
 
     public AuthenticationResponse registerUser(UserDto userDto) {
+        boolean isValidEmail= emailValidator.test(userDto.getEmail());
+
+        if (isValidEmail) {
+            throw new CustomException(ErrorCode.EMAIL_NOT_VALID);
+        }
+
         try {
             Users user;
 
@@ -69,6 +87,11 @@ public class UserService {
                 throw new EntityExistsException("Phone number: " + userDto.getPhone() + " already in use");
             }
             user = userMapper.toEntity(user, userDto);
+
+            String verificationToken=verificationTokenService.saveAndGetVerificationToken(user);
+            String link="http://194.31.52.65:8080/api/verification/verify?token="+verificationToken;
+            emailSender.send(user.getEmail(), link);
+
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
             userRepository.save(user);
